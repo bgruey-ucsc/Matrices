@@ -1,0 +1,5 @@
+# ignore executables
+*.x
+
+#ignore test file
+m_test.c
