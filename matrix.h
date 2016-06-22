@@ -35,9 +35,13 @@
 	
 */
 
-
+#include "math.h"
+#include "stdio.h"
+#include "stdlib.h"
 /*
-	Data
+	Matrix struct and associated functions for manipulations.
+
+	Matrix of doubles, initizialized to zero.
 */
 
 // Matrix Struct
@@ -54,79 +58,86 @@ struct matrix {
 */
 
 // New Matrix
-// Make a new matrix, 
+// Make a new matrix, elements initialized to zero
+struct matrix* New_Matrix(int rows, int columns);
 
-struct matrix* New_Matrix(int rows, int columns) {
 
-	struct matrix* m = (struct matrix*)calloc(1, sizeof(struct matrix));
+// Delete all the data of a matrix
+// Does not delete the pointer though, m still exists
+void Delete_Matrix(struct matrix* m);
 
-	m->rows = rows;
-	m->cols = columns;
-	m->data = (double**)calloc(rows, sizeof(double*));
-	int i = 0;
-	int j = 0;
-	while( i < rows) {
-		m->data[i] = (double*)calloc(columns, sizeof(double));
-		i++;
-	}
 
-	return m;
-}
+// Make an identity matrix of dimension dim
+struct matrix* Id_Matrix(int dim);
+
+
+//Copy the matrix
+// Return the copy
+struct matrix* Copy_Matrix(struct matrix* m);
 
 
 // Multiply two matrices together
 // first check that the matrices have appropriate dimensions.
 // Then brute force, any other way?
+struct matrix* Mult_Matrix( struct matrix* a, struct matrix* b);
 
-struct matrix* Mult_Matrix( struct matrix* a, struct matrix* b) {
-	
-	struct matrix* m = New_Matrix(a->rows, b->cols);
 
-	if (a->cols != b->rows) {
-		fprintf(stdout, "Incompatible dimensions for matrices %p and %p.\n", a, b);
-		return 0;
-	} // end if: checking matrix dimensions
+// Add Matrices
+// m1 = m1 + [weight] * m2
+// returns 1 if dimensions are mistmatched
+// zero else
+int Add_Matrix(struct matrix* m1, struct matrix* m, double weight);
 
-	else{
-		int row = 0;
-		int col = 0;
-		int add = 0;
-		while( row < m->rows) {
-			col = 0; 
-			while (col < m->rows) {
-				add = 0;
-				while( add < b->rows) {
-					m->data[row][col] += a->data[row][add] * b->data[add][col];
-					add++;
-				}// end add: sum for [row][col] position in mult.
-			col++;
-			}// end col: loop over mult columns
-		row++;
-		}// end row: loop over mult rows
-		
-	return m;
-	}// end else: should be multiplied now
-}
 
 // Matrix Print
 // Print to standard out
-void Print_Matrix(struct matrix* m) {
-	int row = 0;
-	int col = 0;
-	printf("Matrix %p, %dx%d\n", m, m->rows, m->cols);
-	while (row < m->rows) { 
-		col = 0;
-		while (col < m->cols) {
-		fprintf(stdout, "%f\t", m->data[row][col]);
-		col++;
-	} // end of col loop
-		fprintf(stdout, "\n");
-		row++;
-	} // end double loop
-}
+void Print_Matrix(struct matrix* m);
 
 
 // Diagonalize Symmetric
 // Assume the matrix is symmetric. That is the user's job to check.
+/***
+	Currently writing sub routines
+*/
+
+
+
+
+// Get a column vector.
+// col == true -> a column vector using column [col] and rows [low] to [high]
+// includes low and high rows
+struct matrix* Get_Cvector(struct matrix* m, int low, int high, int col);
+
+
+// Get a row vector.
+// a row vector using row [row] and columns [low] to [high]
+// includes low and high rows
+struct matrix* Get_Rvector(struct matrix* m, int low, int high, int row);
+
+
+// Norm of a vector, squared
+// to not waste time computing square root if we don't need to
+double Get_Norm2(struct matrix* m);
+
+
+// transpose a matrix
+// if the matrix is square, the values are swapped
+// if the matrix is not square, a new matrix is created, copied over and original deleted
+void Transpose_Matrix( struct matrix** m);
+
+// Householder Step
+// step from n to 1, assumed
+struct matrix* Householder_Step(struct matrix* m, int step);
+
+
+
+
+
+
+
+
+
+
+
 
 
