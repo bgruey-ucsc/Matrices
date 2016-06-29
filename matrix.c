@@ -39,35 +39,33 @@
 #include "matrix.h"
 
 
-// New Matrix
-// Make a new matrix, 
-// m->data[row][col]
-struct matrix* New_Matrix(int rows, int columns) {
-
+// Make a new matrix that is rows by columns
+struct matrix* 
+mtx_new(int rows, int columns) 
+{
 	struct matrix* m = (struct matrix*)calloc(1, sizeof(struct matrix));
 
 	m->rows = rows;
 	m->cols = columns;
 	m->data = (double**)calloc(rows, sizeof(double*));
-	int i = 0;
-	int j = 0;
-	while( i < rows) {
+	int i;
+	for (i = 0;  i < rows; i++ ) 
 		m->data[i] = (double*)calloc(columns, sizeof(double));
-		i++;
-	}
 
 	return m;
 }
 
 
 // Delete all the data of a matrix
-// Does not delete the pointer though, m still exists
-void Delete_Matrix(struct matrix* m) {
+// Does not delete the pointer though,
+// that's your job.
+void 
+mtx_delete(struct matrix* m) 
+{
 	int i = 0;
-	while ( i < m->rows) {
-		free(m->data[i]); // arrays of colum entries
-		i++;
-	}
+	for ( i = 0; i < m->rows; i++) 
+		free(m->data[i]); // arrays of column entries
+
 	free(m->data); // array of rows
 	free(m); // rows, cols and data
 }
@@ -75,35 +73,31 @@ void Delete_Matrix(struct matrix* m) {
 
 
 // Make an identity matrix of dimension dim
-struct matrix* Id_Matrix(int dim) {
+// dim by dim identity matrix
+struct matrix* 
+mtx_identity(int dim) 
+{
+	struct matrix* m = mtx_new(dim, dim);
 
-	struct matrix* m = New_Matrix(dim, dim);
-	int i = 0;
-	while ( i < dim) {
+	int i;
+	for ( i = 0; i < dim; i++ )
 		m->data[i][i] = 1.0;
-		i++;
-	}
 
 	return m;
 }
 
 
 //Copy the matrix
-// Return the copy
-struct matrix* Copy_Matrix(struct matrix* m) {
-	
-	struct matrix* cpy = New_Matrix( m->rows, m->cols);
+// Return a pointer to the copy
+struct matrix* 
+mtx_copy(struct matrix* m) 
+{	
+	struct matrix* cpy = mtx_new( m->rows, m->cols);
 
-	int i = 0;
-	int j = 0;
-	while( i < m->rows) {
-		j = 0;
-		while (j < m->cols) {
+	int i, j;
+	for ( i = 0;  i < m->rows; i++) 
+		for ( j = 0; j < m->cols; j++)
 			cpy->data[i][j] = m->data[i][j];
-			j++;
-		}//end j: over columns
-		i++;
-	}//end i: down rows
 
 	return cpy;
 }
@@ -113,35 +107,24 @@ struct matrix* Copy_Matrix(struct matrix* m) {
 // Multiply two matrices together
 // first check that the matrices have appropriate dimensions.
 // Then brute force, any other way?
-
-struct matrix* Mult_Matrix( struct matrix* a, struct matrix* b) {
-	
-	struct matrix* m = New_Matrix(a->rows, b->cols);
+// returns 0 if the matrices had incompatible dimensions
+struct matrix* 
+mtx_multiply( struct matrix* a, struct matrix* b) 
+{	
+	struct matrix* m = mtx_new(a->rows, b->cols);
 
 	if (a->cols != b->rows) {
 		fprintf(stderr, "Incompatible dimensions for matrices %p and %p.\n", a, b);
 		return 0;
 	} // end if: checking matrix dimensions
 
-	else{
-		int row = 0;
-		int col = 0;
-		int add = 0;
-		while( row < m->rows) {
-			col = 0; 
-			while (col < m->rows) {
-				add = 0;
-				while( add < b->rows) {
-					m->data[row][col] += a->data[row][add] * b->data[add][col];
-					add++;
-				}// end add: sum for [row][col] position in mult.
-			col++;
-			}// end col: loop over mult columns
-		row++;
-		}// end row: loop over mult rows
-		
+	int row, col, add;
+	for (row = 0; row < m->rows; row++ )
+		for ( col = 0; col < m->rows; col++ )
+			for ( add = 0; add < b->rows; add++ )
+				m->data[row][col] += a->data[row][add] * b->data[add][col];
+
 	return m;
-	}// end else: should be multiplied now
 }
 
 
@@ -149,41 +132,37 @@ struct matrix* Mult_Matrix( struct matrix* a, struct matrix* b) {
 // m1 = m1 + [weight] * m2
 // returns 1 if dimensions are mistmatched
 // zero else
-int Add_Matrix(struct matrix* m1, struct matrix* m2, double weight) {
-	if(m1->rows != m2->rows || m1->cols != m2->cols) {
+int 
+mtx_add(struct matrix* m1, struct matrix* m2, double weight) 
+{
+	if ( m1->rows != m2->rows || m1->cols != m2->cols ) {
 		fprintf(stderr, "Mistmatched Matrix Dimensions! %p, %p\n", m1, m2);
 		return 1;
 	}
-	int i = 0;
-	int j = 0;
-	printf("Sizes ok.\n");
-	while( i < m1->rows) {
-		j = 0;
-		while( j < m1->cols) {
+
+	int i, j;
+	for ( i = 0; i < m1->rows; i++) 
+		for ( j = 0; j < m1->cols; j++)
 			m1->data[i][j] = m1->data[i][j] + weight * m2->data[i][j];
-			j++;
-		}//end j: over cols
-		i++;
-	}//end i: down rows
+
 	return 0;
 }
 
 
 // Matrix Print
 // Print to standard out
-void Print_Matrix(struct matrix* m) {
-	int row = 0;
-	int col = 0;
+void 
+mtx_print(struct matrix* m)
+{
+	int row, col;
 	printf("Matrix %p, %dx%d\n", m, m->rows, m->cols);
-	while (row < m->rows) { 
-		col = 0;
-		while (col < m->cols) {
-		fprintf(stdout, "%f\t", m->data[row][col]);
-		col++;
-	} // end of col loop
-		fprintf(stdout, "\n");
-		row++;
-	} // end double loop
+
+	for ( row = 0; row < m->rows; row++ )
+		{
+			for ( col = 0; col < m->cols; col++ )
+				fprintf(stdout, "%f\t", m->data[row][col]);
+			fprintf(stdout, "\n");
+		} // end row loop
 }
 
 
@@ -195,34 +174,34 @@ void Print_Matrix(struct matrix* m) {
 
 
 // Get a column vector.
-// a row vector using column [col] and rowss [low] to [high]
-// includes low and high rows, non-included rows are zero.
-struct matrix* Get_Cvector(struct matrix* m, int low, int high, int col) {
+// a row vector using column [col] and rows [low] to [high]
+// includes low row, does not include high row
+// else cannot use matrix->rows as [high]
+struct matrix* 
+mtx_get_col_vector( struct matrix* m, int low, int high, int col) 
+{
 	int dim = m->rows; // dimension of vector
-	struct matrix* v = New_Matrix( dim, 1);
-	int i = low;
-	high++; // to include high in the loop
+	struct matrix* v = mtx_new( dim, 1 );
+	int i;
 
-	while ( i < high) {
+	for ( i = low; i < high; i++ ) 
 		v->data[i][0] = m->data[i][col];
-		i++;
-	}
 
 	return v;
 }
+
 // Get a row vector.
 // a row vector using row [row] and columns [low] to [high]
-// includes low and high columns, non-included columns are zero.
-struct matrix* Get_Rvector(struct matrix* m, int low, int high, int row) {
+// includes low columns, but not high column
+struct matrix* 
+mtx_get_row_vector( struct matrix* m, int low, int high, int row) 
+{
 	int dim = m->cols; // dimension of vector
-	struct matrix* v = New_Matrix( 1, dim);
-	int i = low;
-	high++; // to include high in the loop
+	struct matrix* v = mtx_new( 1, dim );
+	int i;
 
-	while ( i < high) {
+	for ( i = low; i < high; i++ ) 
 		v->data[0][i] = m->data[row][i];
-		i++;
-	}
 
 	return v;
 }
@@ -230,64 +209,59 @@ struct matrix* Get_Rvector(struct matrix* m, int low, int high, int row) {
 
 // Norm of a vector, squared
 // to not waste time computing square root if we don't need to
-double Get_Norm2(struct matrix* m) {
-	double norm = 0;
-	int i = 0;
+double 
+mtx_vector_norm2( struct matrix* m) 
+{
+	double norm = 0.0;
+	int i;
 	// row vector
 	if (m->rows == 1) {
-		while( i < m->cols) {
+		for (i = 0; i < m->cols; i++ ) 
 			norm += pow( m->data[0][i], 2.0);
-			i++;
-		}
 		return norm;
 	} // end row vector case
 
 	// column vector
 	else if (m->cols == 1) {
-		while (i < m->rows) {
+		for ( i = 0; i < m->rows; i++) 
 			norm += pow( m->data[i][0], 2.0);
-			i++;
-		}
 		return norm;
 	}// end column vector case
 
 	else {
-		fprintf(stdout, "Matrix, not a vector: %p\nHopefully you weren't dividing by that.\n", m);
+		fprintf(stdout, "Matrix, not a vector: %p\nHopefully you weren't dividing by that, because I returned zero.\n", m);
 		return 0.0;
 	}
 	
 }
 
 
-void Transpose_Matrix(struct matrix** m){
-
-	int i = 0;
-	int j = 0;
+void
+mtx_transpose( struct matrix** m )
+{
+	int i, j;
 	if ((*m)->rows == (*m)->cols) { // square matrix
-		double temp = 0;
-		while ( i < (*m)->rows) {
-			j = 0;
-			while( j < i) {
-				temp = (*m)->data[i][j];
-				(*m)->data[i][j] = (*m)->data[j][i];
-				(*m)->data[j][i] = temp;
-				j++;
-			}// end j: loop across columns
-			i++;
-		}// end i: loop down the rows of the matrix
+
+		double temp = 0.0;
+		for ( i = 0; i < (*m)->rows; i++) 
+			for ( j = 0; j < i; j++ ) 
+				{
+					temp = (*m)->data[i][j];
+					(*m)->data[i][j] = (*m)->data[j][i];
+					(*m)->data[j][i] = temp;
+				}// end j: loop across columns
+
 	}//end if: matrix was square
+
 	else{// not a square
-		struct matrix* mm = New_Matrix((*m)->cols, (*m)->rows);
-		while ( i < (*m)->rows) {
-			j = 0;
-			while ( j < (*m)->cols) {
+
+		struct matrix* mm = mtx_new((*m)->cols, (*m)->rows);
+
+		for ( i = 0; i < (*m)->rows; i++) 
+			for ( j = 0; j < (*m)->cols; j++) 
 				mm->data[j][i] = (*m)->data[i][j];
-				j++;
-			}//end j: across columns
-			i++;
-		}//end i: down rows
 		
-		Delete_Matrix(*m);
+		mtx_delete(*m);
 		(*m) = mm; // thus needed pass by reference
 
 	}// end else: matrix was not square
@@ -295,21 +269,23 @@ void Transpose_Matrix(struct matrix** m){
 
 // Householder Step
 // assuming step goes from m->rows to 1 in Householder Loop
-struct matrix* Householder_Step_Matrix(struct matrix* m, int step) {
+struct matrix* 
+mtx_householder_step( struct matrix* m, int step)
+{
 	// vector for outer product
-	struct matrix* u = Get_Cvector(m, step, m->rows, step);
-	Print_Matrix(u);
-	double u_norm = Get_Norm2(u);
+	struct matrix* u = mtx_get_col_vector( m, step, m->rows, step);
+	double u_norm = mtx_vector_norm2(u);
 	//updating to proper definition
-	u->data[step][0] = u->data[step][0] * sqrt(u_norm);
-	u_norm = Get_Norm2(u); 
-	// This is onw the u we wanted for page 595 of Thijssen
+	u->data[step][0] = u->data[step][0] - sqrt(u_norm);
+	mtx_print(u);
+	u_norm = mtx_vector_norm2(u); 
+	// This is one the u we wanted for page 595 of Thijssen
 
-	struct matrix* u_T = Copy_Matrix(u); // make a copy of u vector
-	Transpose_Matrix(&u_T);
-	struct matrix* uu_T = Mult_Matrix(u, u_T);
-	struct matrix* hhst = Id_Matrix(uu_T->rows);
-	Add_Matrix(hhst, uu_T, -2.0 / u_norm);
-
+	struct matrix* u_T = mtx_copy(u); // make a copy of u vector
+	mtx_transpose(&u_T);
+	struct matrix* uu_T = mtx_multiply(u, u_T);
+	struct matrix* hhst = mtx_identity(uu_T->rows);
+	mtx_add(hhst, uu_T, -2.0 / u_norm);
+	
 	return hhst;
 }
