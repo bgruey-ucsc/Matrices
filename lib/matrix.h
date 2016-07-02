@@ -23,6 +23,18 @@
 */
 
 /*
+		Current design considerations:
+
+			Make all matrix operations behave the same way? All return a pointer to a matrix that is the result
+				includes: multiply, add, transpose, etc.
+				this way the user knows exactly how to expect every function to work.
+				I think that's a good idea
+
+
+*/
+
+
+/*
  		Coding Design Considerations
  
 	***
