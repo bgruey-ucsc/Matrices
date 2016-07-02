@@ -2,11 +2,13 @@
 		Matrix Library! 
 
 
-Add Matrices
-m1 = m1 + [weight] * m2
-returns 1 if dimensions are mistmatched
-zero else
+// reduces a square matrix to the identity matrix
+// returns the same row operation on an identiy matrix, could be inverse
+// currently does not check for non-intertibility.
+struct matrix* mtx_rref ( struct matrix* m_in)
 
+
+struct matrix* mtx_rref ( struct matrix* m_in)
 
 
 
@@ -25,17 +27,32 @@ zero else
 	The work started with the infinite square well approximation defined
 	on page 29 of Jos Thijssen's second edition of Computational Physics
 
+   This code will likely not erase your harddrive,
+   but I make no guarantees.
+
+      Benjamin "Brutus" Gruey
+         July 2, 2016
 	
 */
+
+/*		CONFUSION IN CODE
+ *
+ *		When the line 
+ *
+ * 		scale = m->data[i][sum_row] / m->data[sum_row][sum_row];
+ *
+ *		was inside the j loop, the algorithm did not produce the correct inverse
+ *		matrix, though it did turn m_in into the idienty matrix.
+ *
+ *		Why did this occur? No idea.
+ */
 
 #include "matrix.h"
 
 
-// reduced row echelon form of matrix m
-// returns m in rref form if inv = 0
-// else returns the inverse of the matrix, may or may not be valid
-// if inv != 0, the m is assumed to be square.
-
+// reduces a square matrix to the identity matrix
+// returns the same row operation on an identiy matrix, could be inverse
+// currently does not check for non-intertibility.
 struct matrix*
 mtx_rref ( struct matrix* m_in)
 {
@@ -48,11 +65,11 @@ mtx_rref ( struct matrix* m_in)
 	{
 		for ( i = sum_row + 1; i < m->rows; i++) // each of the lower rows will get added to by the sum_row row
 		{
+
+		scale = m->data[i][sum_row] / m->data[sum_row][sum_row];
+
 			for ( j = 0; j < m->cols; j++) // sum each element of the row, ignoring zeroes reduces roundoff error, maybe?
 			{
-
-			scale = m->data[i][sum_row] / m->data[sum_row][sum_row];
-
 			m->data[i][j] = m->data[i][j] - scale * m->data[sum_row][j];
 
 			m_inv->data[i][j] = m_inv->data[i][j] - scale * m_inv->data[sum_row][j];
@@ -68,11 +85,11 @@ mtx_rref ( struct matrix* m_in)
 	{
 		for ( i = sum_row - 1; i > -1; i--) // each of the lower rows will get added to by the sum_row row
 		{
+
+			scale = m->data[i][sum_row] / m->data[sum_row][sum_row];
+
 			for ( j = 0; j < m->cols; j++) // sum each element of the row, need all for inverse matrix
 			{
-
-				scale = m->data[i][sum_row] / m->data[sum_row][sum_row];
-
 				m->data[i][j] = m->data[i][j] - scale * m->data[sum_row][j];
 
 				m_inv->data[i][j] = m_inv->data[i][j] - scale * m_inv->data[sum_row][j];
@@ -88,8 +105,10 @@ mtx_rref ( struct matrix* m_in)
 	{
 		scale = 1.0 / m->data[i][i];
 		for( j = 0; j < m->cols; j++)
+		{
 			m->data[i][j] *= scale;
 			m_inv->data[i][j] *= scale;
+		}
 	} // end for i
 
 	printf("Identity??\n");

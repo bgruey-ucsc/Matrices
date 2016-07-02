@@ -21,12 +21,17 @@ void mtx_print(struct matrix* m);
 	The work started with the infinite square well approximation defined
 	on page 29 of Jos Thijssen's second edition of Computational Physics
 
+   This code will likely not erase your harddrive,
+   but I make no guarantees.
+
+      Benjamin "Brutus" Gruey
+         July 2, 2016
 
 */
 
 
 #include "matrix.h"
-
+#define OUT_STREAM stdout
 
 // Matrix Print
 // Print to standard out
@@ -39,8 +44,8 @@ mtx_print(struct matrix* m)
 	for ( row = 0; row < m->rows; row++ )
 		{
 			for ( col = 0; col < m->cols; col++ )
-				fprintf(stdout, "%f\t", m->data[row][col]);
-			fprintf(stdout, "\n");
+				fprintf(OUT_STREAM, "%.3f\t", m->data[row][col]);
+			fprintf(OUT_STREAM, "\n\n");
 		} // end row loop
 }
 

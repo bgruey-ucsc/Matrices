@@ -20,6 +20,12 @@
 	on page 29 of Jos Thijssen's second edition of Computational Physics
 
 
+	This code will likely not erase your harddrive,
+	but I make no guarantees.
+
+		Benjamin "Brutus" Gruey
+			July 2, 2016
+
 */
 
 /*
@@ -153,11 +159,9 @@ struct matrix* mtx_householder_step(struct matrix* m, int step);
 
 
 
-// reduced row echelon form of matrix m
-// returns m in rref form if inv = 0
-// else returns the inverse of the matrix, may or may not be valid
-// if inv != 0, the m is assumed to be square.
-struct matrix* rref ( struct matrix* m, int inv);
-
+// reduces a square matrix to the identity matrix
+// returns the same row operation on an identiy matrix, could be inverse
+// currently does not check for non-intertibility.
+struct matrix* mtx_rref ( struct matrix* m_in);
 
 #endif

@@ -1,3 +1,16 @@
+/*
+
+	Test program for Brutus' Matrix library.
+
+	Likely there isn't a daemon somewhere in here that replaces your hard rive with zeros.
+
+	Benjamin "Brutus" Gruey
+		July 2, 2016
+
+
+*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -70,12 +83,12 @@ int main( int argc, char** argv) {
 	printf("[Coefficients: ax^2 + yx + c]\n");
 
 
-	struct matrix* inv = mtx_rref(sym, 1);
+	struct matrix* inv = mtx_rref(sym);
 	printf("This is the inversion matrix for sym\n");
 	mtx_print(inv);
 	
 	printf("This is the identity matrix?\n");
-	struct matrix* idd = mtx_multiply(sym, inv);
+	struct matrix* idd = mtx_multiply(inv, sym);
 	mtx_print( idd );
 
 	struct matrix* coeffs = mtx_new(3, 1);

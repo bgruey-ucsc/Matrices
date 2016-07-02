@@ -25,6 +25,11 @@ zero else
 	The work started with the infinite square well approximation defined
 	on page 29 of Jos Thijssen's second edition of Computational Physics
 
+   This code will likely not erase your harddrive,
+   but I make no guarantees.
+
+      Benjamin "Brutus" Gruey
+         July 2, 2016
 	
 */
 
