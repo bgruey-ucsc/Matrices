@@ -153,6 +153,11 @@ struct matrix* mtx_householder_step(struct matrix* m, int step);
 
 
 
+// reduced row echelon form of matrix m
+// returns m in rref form if inv = 0
+// else returns the inverse of the matrix, may or may not be valid
+// if inv != 0, the m is assumed to be square.
+struct matrix* rref ( struct matrix* m, int inv);
 
 
 #endif

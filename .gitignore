@@ -7,7 +7,7 @@ m_test.c
 test.c
 
 # ignore note file
-library_crafting
+craft_a_library
 
 # ignore object files
 *.o
