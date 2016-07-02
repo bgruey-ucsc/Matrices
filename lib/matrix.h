@@ -1,3 +1,6 @@
+#ifndef _MATRIX_BRUTUS_
+#define _MATRIX_BRUTUS_
+
 /*
 		Matrix Library! 
 
@@ -140,4 +143,4 @@ struct matrix* mtx_householder_step(struct matrix* m, int step);
 
 
 
-
+#endif

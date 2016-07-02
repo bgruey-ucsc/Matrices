@@ -1,6 +1,16 @@
 # ignore executables
 *.x
+*.out
 
-#ignore test file
+# ignore test file
 m_test.c
 test.c
+
+# ignore note file
+library_crafting
+
+# ignore object files
+*.o
+
+# ignore library files
+*.a

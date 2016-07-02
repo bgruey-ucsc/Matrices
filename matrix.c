@@ -36,7 +36,7 @@
 
 */
 
-#include "matrix.h"
+#include "lib/matrix.h"
 
 
 // Make a new matrix that is rows by columns
