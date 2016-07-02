@@ -2,10 +2,6 @@
 *.x
 *.out
 
-# ignore test file
-m_test.c
-test.c
-
 # ignore note file
 craft_a_library
 
