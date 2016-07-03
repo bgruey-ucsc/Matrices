@@ -1,82 +1,21 @@
+/* Defines the matrix struct and associated functions.  */
+
 #ifndef _MATRIX_BRUTUS_
 #define _MATRIX_BRUTUS_
-
-/*
-		Matrix Library! 
-
-	Started as a C library to solve a generalized eigenvalue problem,
-	numerical approximations to quantum systems:
-
-		[H] * [C] = E * [S] * [C]
-
-	where brackets indicate matrices:
-		H is the Mamiltonian
-		C is the basis function coefficient matrix
-		S is the generalized "______" matrix for non-orthogonal basis functions
-			it would be the identity matrix if they were orthogonal
-			this matrix should be symmetric
-
-	The work started with the infinite square well approximation defined
-	on page 29 of Jos Thijssen's second edition of Computational Physics
-
-
-	This code will likely not erase your harddrive,
-	but I make no guarantees.
-
-		Benjamin "Brutus" Gruey
-			July 2, 2016
-
-*/
-
-/*
-		Current design considerations:
-
-			Make all matrix operations behave the same way? All return a pointer to a matrix that is the result
-				includes: multiply, add, transpose, etc.
-				this way the user knows exactly how to expect every function to work.
-				I think that's a good idea
-
-
-*/
-
-
-/*
- 		Coding Design Considerations
- 
-	***
- 	Using structures, which form?
-
-		typedef struct { // Stuff } matrix;
-	or
-		struct matrix { // stuff };
- 
-	***
-	Use a namespace? Does anyone ever actually use a namespace? 
-
-	
-*/
 
 #include "math.h"
 #include "stdio.h"
 #include "stdlib.h"
-/*
-	Matrix struct and associated functions for manipulations.
 
-	Matrix of doubles, initizialized to zero.
-*/
-
-// Matrix Struct
+/* Struct.  */
 
 struct matrix {
 	int rows, cols;
-
 	double** data;
 };
 
 
-/*
-	Functions
-*/
+/* Functions.  */
 
 // New Matrix
 // Make a new matrix, elements initialized to zero
@@ -122,8 +61,6 @@ void mtx_print(struct matrix* m);
 */
 
 
-
-
 // Get a column vector.
 // col == true -> a column vector using column [col] and rows [low] to [high]
 // includes low row, not  high
@@ -146,17 +83,10 @@ double mtx_vector_norm2(struct matrix* m);
 // if the matrix is not square, a new matrix is created, copied over and original deleted
 void mtx_transpose( struct matrix** m);
 
+
 // Householder Step
 // step from n to 1, assumed
 struct matrix* mtx_householder_step(struct matrix* m, int step);
-
-
-
-
-
-
-
-
 
 
 // reduces a square matrix to the identity matrix
@@ -164,4 +94,5 @@ struct matrix* mtx_householder_step(struct matrix* m, int step);
 // currently does not check for non-intertibility.
 struct matrix* mtx_rref ( struct matrix* m_in);
 
-#endif
+
+#endif /* _MATRIX_BRUTUS */
