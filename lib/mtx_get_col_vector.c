@@ -4,14 +4,14 @@
 
 #include "matrix.h"
 
-struct matrix*
-mtx_get_col_vector( struct matrix* m, int low, int high, int col)
+struct matrix *
+mtx_get_col_vector (struct matrix *m, int low, int high, int col)
 {
 	int dim = m->rows; // dimension of vector
-	struct matrix* v = mtx_new( dim, 1 );
+	struct matrix *v = mtx_new (dim, 1);
 	int i;
 
-	for ( i = low; i < high; i++ )
+	for (i = low; i < high; i++)
 		v->data[i][0] = m->data[i][col];
 
 	return v;

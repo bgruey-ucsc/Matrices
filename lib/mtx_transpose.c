@@ -5,32 +5,27 @@
 #include "matrix.h"
 
 void
-mtx_transpose( struct matrix** m )
+mtx_transpose (struct matrix **m)
 {
 	int i, j;
 	if ((*m)->rows == (*m)->cols) { // square matrix
-
 		double temp = 0.0;
-		for ( i = 0; i < (*m)->rows; i++)
-			for ( j = 0; j < i; j++ )
-				{
-					temp = (*m)->data[i][j];
-					(*m)->data[i][j] = (*m)->data[j][i];
-					(*m)->data[j][i] = temp;
-				}// end j: loop across columns
+		for (i = 0; i < (*m)->rows; i++)
+			for (j = 0; j < i; j++) {
+				temp = (*m)->data[i][j];
+				(*m)->data[i][j] = (*m)->data[j][i];
+				(*m)->data[j][i] = temp;
+			} // end j: loop across columns
+	} //end if: matrix was square
 
-	}//end if: matrix was square
+	else { // not a square
+		struct matrix *mm = mtx_new ((*m)->cols, (*m)->rows);
 
-	else{// not a square
-
-		struct matrix* mm = mtx_new((*m)->cols, (*m)->rows);
-
-		for ( i = 0; i < (*m)->rows; i++)
-			for ( j = 0; j < (*m)->cols; j++)
+		for (i = 0; i < (*m)->rows; i++)
+			for (j = 0; j < (*m)->cols; j++)
 				mm->data[j][i] = (*m)->data[i][j];
 
-		mtx_delete(*m);
+		mtx_delete (*m);
 		(*m) = mm; // thus needed pass by reference
-
-	}// end else: matrix was not square
+	} // end else: matrix was not square
 }

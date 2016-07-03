@@ -4,12 +4,12 @@
 #include "matrix.h"
 
 void
-mtx_delete(struct matrix* m)
+mtx_delete (struct matrix *m)
 {
 	int i = 0;
-	for ( i = 0; i < m->rows; i++)
-		free(m->data[i]); // arrays of column entries
+	for (i = 0; i < m->rows; i++)
+		free (m->data[i]); // arrays of column entries
 
-	free(m->data); // array of rows
-	free(m); // rows, cols and data
+	free (m->data); // array of rows
+	free (m); // rows, cols and data
 }
