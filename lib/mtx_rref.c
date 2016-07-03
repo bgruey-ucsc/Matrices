@@ -1,58 +1,20 @@
-/*
-		Matrix Library! 
+/* Reduces a square matrix to the identity matrix.  Returns the same
+   row operation on an identiy matrix, could be inverse.  Currently
+   does not check for non-intertibility.  */
 
+/* CONFUSION IN CODE
 
-// reduces a square matrix to the identity matrix
-// returns the same row operation on an identiy matrix, could be inverse
-// currently does not check for non-intertibility.
-struct matrix* mtx_rref ( struct matrix* m_in)
+   When the line
 
+   scale = m->data[i][sum_row] / m->data[sum_row][sum_row];
 
-struct matrix* mtx_rref ( struct matrix* m_in)
+   was inside the j loop, the algorithm did not produce the correct
+   inverse matrix, though it did turn m_in into the idienty matrix.
 
-
-
-	Started as a C library to solve a generalized eigenvalue problem,
-	numerical approximations to quantum systems:
-
-		[H] * [C] = E * [S] * [C]
-
-	where brackets indicate matrices:
-		H is the Mamiltonian
-		C is the basis function coefficient matrix
-		S is the generalized "______" matrix for non-orthogonal basis functions
-			it would be the identity matrix if they were orthogonal
-			this matrix should be symmetric
-
-	The work started with the infinite square well approximation defined
-	on page 29 of Jos Thijssen's second edition of Computational Physics
-
-   This code will likely not erase your harddrive,
-   but I make no guarantees.
-
-      Benjamin "Brutus" Gruey
-         July 2, 2016
-	
-*/
-
-/*		CONFUSION IN CODE
- *
- *		When the line 
- *
- * 		scale = m->data[i][sum_row] / m->data[sum_row][sum_row];
- *
- *		was inside the j loop, the algorithm did not produce the correct inverse
- *		matrix, though it did turn m_in into the idienty matrix.
- *
- *		Why did this occur? No idea.
- */
+   Why did this occur? No idea.  */
 
 #include "matrix.h"
 
-
-// reduces a square matrix to the identity matrix
-// returns the same row operation on an identiy matrix, could be inverse
-// currently does not check for non-intertibility.
 struct matrix*
 mtx_rref ( struct matrix* m_in)
 {
@@ -117,22 +79,3 @@ mtx_rref ( struct matrix* m_in)
 
 	return m_inv;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
