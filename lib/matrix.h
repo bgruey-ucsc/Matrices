@@ -3,9 +3,9 @@
 #ifndef _MATRIX_BRUTUS_
 #define _MATRIX_BRUTUS_
 
-#include "math.h"
-#include "stdio.h"
-#include "stdlib.h"
+#include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 /* Struct.  */
 
