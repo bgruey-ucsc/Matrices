@@ -7,12 +7,12 @@
 void
 mtx_print (struct matrix *m)
 {
-	size_t row, col;
-	printf ("Matrix %p, %zux%zu\n", m, m->rows, m->cols);
+    size_t row, col;
+    printf ("Matrix %p, %zux%zu\n", m, m->rows, m->cols);
 
-	for (row = 0; row < m->rows; row++) {
-		for (col = 0; col < m->cols; col++)
-			fprintf (OUT_STREAM, "%.3f\t", m->data[row][col]);
-		fprintf (OUT_STREAM, "\n\n");
-	} // end row loop
+    for (row = 0; row < m->rows; row++) {
+	for (col = 0; col < m->cols; col++)
+	    fprintf (OUT_STREAM, "%.3f\t", m->data[row][col]);
+	fprintf (OUT_STREAM, "\n\n");
+    } // end row loop
 }

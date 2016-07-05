@@ -7,19 +7,19 @@
 struct matrix *
 mtx_new (size_t rows, size_t columns)
 {
-	size_t i;
-	struct matrix *m;
+    size_t i;
+    struct matrix *m;
 
-	m = (struct matrix *) _xmalloc (sizeof (struct matrix));
+    m = (struct matrix *) _xmalloc (sizeof (struct matrix));
 
-	m->rows = rows;
-	m->cols = columns;
+    m->rows = rows;
+    m->cols = columns;
 
-	// C is row-major
-	m->data = (double **) _xmalloc (rows * sizeof (double *));
+    // C is row-major
+    m->data = (double **) _xmalloc (rows * sizeof (double *));
 
-	for (i = 0; i < rows; ++i)
-		m->data[i] = (double *) _xcalloc (columns, sizeof (double));
+    for (i = 0; i < rows; ++i)
+      m->data[i] = (double *) _xcalloc (columns, sizeof (double));
 
-	return m;
+    return m;
 }

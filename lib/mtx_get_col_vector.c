@@ -7,12 +7,12 @@
 struct matrix *
 mtx_get_col_vector (struct matrix *m, size_t low, size_t high, size_t col)
 {
-	size_t dim = m->rows; // dimension of vector
-	struct matrix *v = mtx_new (dim, 1);
-	size_t i;
+    size_t dim = m->rows; // dimension of vector
+    struct matrix *v = mtx_new (dim, 1);
+    size_t i;
 
-	for (i = low; i < high; i++)
-		v->data[i][0] = m->data[i][col];
+    for (i = low; i < high; i++)
+	v->data[i][0] = m->data[i][col];
 
-	return v;
+    return v;
 }

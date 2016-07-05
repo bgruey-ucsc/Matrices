@@ -10,8 +10,8 @@
 /* Struct.  */
 
 struct matrix {
-	size_t rows, cols;
-	double **data;
+    size_t rows, cols;
+    double **data;
 };
 
 
