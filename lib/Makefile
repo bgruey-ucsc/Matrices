@@ -1,20 +1,18 @@
-# makefile for matrix library
-#
-#	Likely one shouldn't call make clean at the end of all, but I don't know better yet.
-#
-#   This code will likely not erase your harddrive,
-#   but I make no guarantees.
-#
-#      Benjamin "Brutus" Gruey
-#         July 2, 2016
+# Make the Matrix Library!
 
-all: libmatrix.a
-	make clean
-libmatrix.a:	*.o
-	ar -cvq libmatrix.a *.o
+CC=/usr/bin/gcc
+CFLAGS=-shared -fPIC
+LD=/usr/bin/ld
+LDFLAGS=-shared -fPIC -lm
 
-*.o:	*.c
-	gcc -c *.c
+srcfiles = $(wildcard *.c)
+objfiles = $(srcfiles:.c=.o)
 
+default: libmatrix.so
+
+libmatrix.so: $(objfiles)
+	$(LD) $(LDFLAGS) -o $@ $^
+
+.PHONY: clean
 clean:
-	rm *.o
+	rm $(objfiles) libmatrix.so
