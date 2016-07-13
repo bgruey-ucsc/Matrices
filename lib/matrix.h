@@ -10,8 +10,8 @@
 /* Struct.  */
 
 struct matrix {
-	int rows, cols;
-	double** data;
+	size_t rows, cols;
+	double **data;
 };
 
 
@@ -19,7 +19,7 @@ struct matrix {
 
 // New Matrix
 // Make a new matrix, elements initialized to zero
-struct matrix *mtx_new (int rows, int columns);
+struct matrix *mtx_new (size_t rows, size_t columns);
 
 
 // Delete all the data of a matrix
@@ -28,7 +28,7 @@ void mtx_delete (struct matrix *m);
 
 
 // Make an identity matrix of dimension dim
-struct matrix *mtx_identity (int dim);
+struct matrix *mtx_identity (size_t dim);
 
 
 //Copy the matrix
@@ -64,13 +64,13 @@ void mtx_print (struct matrix *m);
 // Get a column vector.
 // col == true -> a column vector using column [col] and rows [low] to [high]
 // includes low row, not  high
-struct matrix *mtx_get_col_vector (struct matrix *m, int low, int high, int col);
+struct matrix *mtx_get_col_vector (struct matrix *m, size_t low, size_t high, size_t col);
 
 
 // Get a row vector.
 // a row vector using row [row] and columns [low] to [high]
 // includes low column, not high
-struct matrix *mtx_get_row_vector (struct matrix *m, int low, int high, int row);
+struct matrix *mtx_get_row_vector (struct matrix *m, size_t low, size_t high, size_t row);
 
 
 // Norm of a vector, squared

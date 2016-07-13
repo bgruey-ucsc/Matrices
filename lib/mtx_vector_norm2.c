@@ -7,7 +7,7 @@ double
 mtx_vector_norm2 (struct matrix *m)
 {
 	double norm = 0.0;
-	int i;
+	size_t i;
 	// row vector
 	if (m->rows == 1) {
 		for (i = 0; i < m->cols; i++)

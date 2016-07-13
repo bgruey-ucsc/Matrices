@@ -21,7 +21,7 @@ mtx_rref (struct matrix *m_in)
 	struct matrix *m = mtx_copy (m_in);
 	struct matrix *m_inv = mtx_identity (m->rows);
 	// remove lower diagonal of the matrix, ie. set to zero by row operations
-	int sum_row, i, j;
+	size_t sum_row, i, j;
 	float scale = 0.0;
 	for (sum_row = 0; sum_row < m->rows - 1; sum_row++) { // all but the bottom row will be added to the lower row
 		for (i = sum_row + 1; i < m->rows; i++) { // each of the lower rows will get added to by the sum_row row

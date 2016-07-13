@@ -14,7 +14,7 @@ mtx_multiply (struct matrix *a, struct matrix *b)
 		return 0;
 	} // end if: checking matrix dimensions
 
-	int row, col, add;
+	size_t row, col, add;
 	for (row = 0; row < m->rows; row++)
 		for (col = 0; col < m->rows; col++)
 			for (add = 0; add < b->rows; add++)

@@ -3,11 +3,11 @@
 #include "matrix.h"
 
 struct matrix *
-mtx_identity (int dim)
+mtx_identity (size_t dim)
 {
 	struct matrix *m = mtx_new (dim, dim);
 
-	int i;
+	size_t i;
 	for (i = 0; i < dim; i++)
 		m->data[i][i] = 1.0;
 

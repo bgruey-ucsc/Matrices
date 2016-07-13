@@ -5,11 +5,11 @@
 #include "matrix.h"
 
 struct matrix *
-mtx_get_col_vector (struct matrix *m, int low, int high, int col)
+mtx_get_col_vector (struct matrix *m, size_t low, size_t high, size_t col)
 {
-	int dim = m->rows; // dimension of vector
+	size_t dim = m->rows; // dimension of vector
 	struct matrix *v = mtx_new (dim, 1);
-	int i;
+	size_t i;
 
 	for (i = low; i < high; i++)
 		v->data[i][0] = m->data[i][col];

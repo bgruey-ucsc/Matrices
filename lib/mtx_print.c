@@ -7,8 +7,8 @@
 void
 mtx_print (struct matrix *m)
 {
-	int row, col;
-	printf ("Matrix %p, %dx%d\n", m, m->rows, m->cols);
+	size_t row, col;
+	printf ("Matrix %p, %zux%zu\n", m, m->rows, m->cols);
 
 	for (row = 0; row < m->rows; row++) {
 		for (col = 0; col < m->cols; col++)

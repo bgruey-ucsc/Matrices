@@ -6,7 +6,7 @@
 void
 mtx_delete (struct matrix *m)
 {
-	int i = 0;
+	size_t i = 0;
 	for (i = 0; i < m->rows; i++)
 		free (m->data[i]); // arrays of column entries
 

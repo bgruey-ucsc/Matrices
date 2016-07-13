@@ -7,7 +7,7 @@ mtx_copy (struct matrix *m)
 {
 	struct matrix *cpy = mtx_new (m->rows, m->cols);
 
-	int i, j;
+	size_t i, j;
 	for (i = 0; i < m->rows; i++)
 		for (j = 0; j < m->cols; j++)
 			cpy->data[i][j] = m->data[i][j];

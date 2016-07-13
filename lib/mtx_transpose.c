@@ -7,7 +7,7 @@
 void
 mtx_transpose (struct matrix **m)
 {
-	int i, j;
+	size_t i, j;
 	if ((*m)->rows == (*m)->cols) { // square matrix
 		double temp = 0.0;
 		for (i = 0; i < (*m)->rows; i++)

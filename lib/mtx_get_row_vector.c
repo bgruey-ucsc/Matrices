@@ -4,11 +4,11 @@
 #include "matrix.h"
 
 struct matrix *
-mtx_get_row_vector (struct matrix *m, int low, int high, int row)
+mtx_get_row_vector (struct matrix *m, size_t low, size_t high, size_t row)
 {
-	int dim = m->cols; // dimension of vector
+	size_t dim = m->cols; // dimension of vector
 	struct matrix *v = mtx_new (1, dim);
-	int i;
+	size_t i;
 
 	for (i = low; i < high; i++)
 		v->data[0][i] = m->data[row][i];
