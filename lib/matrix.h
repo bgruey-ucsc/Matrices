@@ -43,10 +43,10 @@ struct matrix *mtx_multiply (struct matrix *a, struct matrix *b);
 
 
 // Add Matrices
-// m1 = m1 + [weight] * m2
-// returns 1 if dimensions are mistmatched
-// zero else
-int mtx_add (struct matrix *m1, struct matrix *m, double weight);
+// m3 = m1 + [weight] * m2
+// returns 0 if dimensions are mistmatched
+// pointer to m3 if not
+struct matrix *mtx_add (struct matrix *m1, struct matrix *m, double weight);
 
 
 // Matrix Print

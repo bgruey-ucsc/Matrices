@@ -16,7 +16,7 @@
 #include <string.h>
 
 
-#include "./lib/matrix.h"
+#include "../lib/matrix.h"
 
 int main( int argc, char** argv) {
 
