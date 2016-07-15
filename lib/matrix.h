@@ -59,6 +59,12 @@ int mtx_increment (struct matrix *m1, struct matrix *m2, double weight);
 void mtx_print (struct matrix *m);
 
 
+/*  Load Matrix from File
+    Reads a matrix from a tab or comma separated list in ascii characters
+    returns the matrix, or exits program if
+    file could not be opened or extra white space was found at end of file. */
+struct matrix *mtx_load_from_file (const char* file_name);
+
 // Diagonalize Symmetric
 // Assume the matrix is symmetric. That is the user's job to check.
 /***
