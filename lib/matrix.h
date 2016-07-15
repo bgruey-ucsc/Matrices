@@ -48,6 +48,11 @@ struct matrix *mtx_multiply (struct matrix *a, struct matrix *b);
 // pointer to m3 if not
 struct matrix *mtx_add (struct matrix *m1, struct matrix *m, double weight);
 
+/*  Increment Matrix
+    m1 = m1 + weight * m2
+    return 0 if dimensions of m1 and m2 did not match
+    returns 1 else */
+int mtx_increment (struct matrix *m1, struct matrix *m2, double weight);
 
 // Matrix Print
 // Print to standard out
