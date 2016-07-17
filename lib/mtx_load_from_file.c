@@ -14,8 +14,8 @@ mtx_load_from_file (const char* file_name)
     FILE *in_m = fopen(file_name, "r");
     if (in_m == NULL)
     {
-        fprintf(stderr, "Unable to open file:\n%s\n", file_name);
-        exit(1);
+	fprintf(stderr, "Unable to open file:\n%s\n", file_name);
+	exit(1);
     }
 
     /* Read number of lines (rows) in file. */
@@ -23,22 +23,22 @@ mtx_load_from_file (const char* file_name)
     size_t rows = 0;
     size_t len = 0;
     while (getline (&line, &len, in_m) != -1)
-        rows++;
+	rows++;
 
     /* Check the last line of the file contains data. */
     size_t cols = 0;
     if (strtok (line, DELIMS) != NULL)
-        cols++;
+	cols++;
     else
     {
-        fprintf (stderr, "Last line did not contain data. Extra whitespace in file?\n%s\n"
-            , file_name);
-        exit(1); /* Or return NULL? */
+	fprintf (stderr, "Last line did not contain data. Extra whitespace in file?\n%s\n"
+	    , file_name);
+	exit(1); /* Or return NULL? */
     }
 
     /* Read last line to get number of columns. */
     while (strtok (NULL, DELIMS) != NULL)
-        cols++;
+	cols++;
 
     fclose (in_m);
     free (line);
@@ -51,9 +51,9 @@ mtx_load_from_file (const char* file_name)
     int i,j;
     for (i = 0; getline(&line, &len, in_m) != -1; i++)
     {
-        m->data[i][0] = atof (strtok(line, DELIMS));
-        for (j = 1; (row_array[j] = strtok(NULL, DELIMS)) != NULL; j++)
-            m->data[i][j] = atof (row_array[j]);
+	m->data[i][0] = atof (strtok(line, DELIMS));
+	for (j = 1; (row_array[j] = strtok(NULL, DELIMS)) != NULL; j++)
+	    m->data[i][j] = atof (row_array[j]);
     }
 
     return m;

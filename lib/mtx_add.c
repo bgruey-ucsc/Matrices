@@ -6,7 +6,8 @@
 struct matrix *
 mtx_add (struct matrix *m1, struct matrix *m2, double weight)
 {
-    if (m1->rows != m2->rows || m1->cols != m2->cols) {
+    if (m1->rows != m2->rows || m1->cols != m2->cols) 
+    {
 	fprintf (stderr, "Mistmatched Matrix Dimensions! %p, %p\n", m1, m2);
 	return 0;
     }
