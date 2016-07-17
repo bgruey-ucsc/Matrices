@@ -1,0 +1,26 @@
+    Thoughts on next steps in the project, rather than littering them
+	throughout the gitlogs.
+
+1.  lib/mtx_transpose.c: Transpose API
+	- Currently uses pass by reference to alter the given matrix
+	- It should take a matrix pointer, and return its transpose
+	- Can we make another function, same name, that takes a **matrix?
+	    This one would alter the given matrix.
+	    Should this function go in the same file, since they are effectively
+	    the same function, same name?
+
+2.  typedef
+	- Haven't implemented this yet.
+	- This would alter every file, though *should* be simple to do.
+
+3.  LU Decomposition
+	- New function, though can be computationally similar to mtx_rref.c's algorithm.
+	- Could be useful for deciding if the determinant of the given matrix is zero.
+	- Also probably other stuff.
+
+4.  QR Decomposition for Eigen-work
+	- http://www.math.umn.edu/~olver/num_/lnqr.pdf
+	- An example with the numerics alongside the algorithm
+	- May work better than the householder definition I was using in Thijssen.
+	- Value and vector, that's everything we'd need!
+
