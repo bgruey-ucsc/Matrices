@@ -106,13 +106,22 @@ struct matrix *mtx_householder_step (struct matrix *m, int step);
 struct matrix *mtx_rref (struct matrix *m_in);
 
 
-
 /*
+ * Graham Schmidt Orthonormalization of Matrix
+ * returns a matrix whose columns are the orthonormal
+ * basis of the argument matrix column vectors.
+ *
+ * Does not check for Uniqueness.
+ */
+struct matrix *mtx_gs_col (struct matrix* m);
+
+
+/**********************************************************
  *  Vector Functions
  *
  *  These functions expect row or column vector matrices
  *  and return zero/ NULL if this is not the case.
- */
+ **********************************************************/ 
 
 /*
  *  Dot product
