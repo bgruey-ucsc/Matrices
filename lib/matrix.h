@@ -120,7 +120,12 @@ struct matrix *mtx_rref (struct matrix *m_in);
  */
 float mtx_dot (struct matrix *v1, struct matrix *v2);
 
-
+/*
+ * Normalize Vector
+ * returns a normalized version of the supplied vector.
+ * vector v can be rows or columns.
+ */
+struct matrix *mtx_normalize (struct matrix *v);
 
 
 
