@@ -106,4 +106,22 @@ struct matrix *mtx_householder_step (struct matrix *m, int step);
 struct matrix *mtx_rref (struct matrix *m_in);
 
 
+
+/*
+ *  Vector Functions
+ *
+ *  These functions expect row or column vector matrices
+ *  and return zero/ NULL if this is not the case.
+ */
+
+/*
+ *  Dot product
+ *  returns the dot product of two row vectors or two column vectors
+ */
+float mtx_dot (struct matrix *v1, struct matrix *v2);
+
+
+
+
+
 #endif /* _MATRIX_BRUTUS */
