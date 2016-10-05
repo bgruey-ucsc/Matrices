@@ -24,5 +24,9 @@ int main( int argc, char** argv) {
     printf("Graham-Schmidt Test.\n");
     struct matrix *e = mtx_gs_col (a);
     mtx_print (e);
+
+    struct matrix *eT = mtx_transpose (e);
+    struct matrix *r = mtx_multiply(eT, a);
+    mtx_print (r);
     return 0;
 }

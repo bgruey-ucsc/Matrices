@@ -92,7 +92,7 @@ double mtx_vector_norm2 (struct matrix *m);
 // transpose a matrix
 // if the matrix is square, the values are swapped
 // if the matrix is not square, a new matrix is created, copied over and original deleted
-void mtx_transpose (struct matrix **m);
+struct matrix * mtx_transpose (struct matrix *m);
 
 
 // Householder Step
