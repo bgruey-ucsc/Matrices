@@ -58,6 +58,11 @@ int mtx_increment (struct matrix *m1, struct matrix *m2, double weight);
 // Print to standard out
 void mtx_print (struct matrix *m);
 
+/*
+ *  print matrix to out
+ */
+void mtx_print_o (FILE* out, struct matrix *m);
+
 
 /*  Load Matrix from File
     Reads a matrix from a tab or comma separated list in ascii characters
