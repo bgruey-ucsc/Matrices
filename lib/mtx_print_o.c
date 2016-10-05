@@ -4,7 +4,7 @@
 
 
 void
-mtx_print (FILE* out, struct matrix *m)
+mtx_print_o (FILE* out, struct matrix *m)
 {
     size_t row, col;
 

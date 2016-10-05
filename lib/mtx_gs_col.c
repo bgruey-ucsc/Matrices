@@ -27,7 +27,7 @@ mtx_gs_col (struct matrix *m)
     int vec, row;
 
     ptr = mtx_normalize (vecs[0]);
-    mtx_delete (vecs[0]);
+    mtx_delete (&vecs[0]);
     vecs[0] = ptr;
     ptr = NULL;
   
@@ -41,11 +41,11 @@ mtx_gs_col (struct matrix *m)
         for (vec_it = vec-1; vec_it >-1; vec_it -= 1)
         {
             v2 = mtx_add (v1, vecs[vec_it], -mtx_dot (vecs[vec], vecs[vec_it]));
-            mtx_delete (v1);
+            mtx_delete (&v1);
             v1 = v2;
         }/*end for vec_it */
 
-        mtx_delete (vecs[vec]);
+        mtx_delete (&vecs[vec]);
         vecs[vec] = mtx_normalize (v2);
         v2 = NULL;
 
