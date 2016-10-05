@@ -24,7 +24,7 @@ struct matrix *mtx_new (size_t rows, size_t columns);
 
 // Delete all the data of a matrix
 // Does not delete the pointer though, m still exists
-void mtx_delete (struct matrix *m);
+void mtx_delete (struct matrix **m);
 
 
 // Make an identity matrix of dimension dim
