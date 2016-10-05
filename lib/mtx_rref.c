@@ -38,14 +38,11 @@ mtx_rref (struct matrix *m_in)
 	    } // end of j
 	} // end for i
     } // end for sum_row
-    printf ("Removed zeroes below?\n");
-    mtx_print (m);
-    mtx_print (m_inv);
-    // remove upper portion
 
+    // remove upper portion
     for (sum_row = m->rows-1; sum_row > 0; sum_row--) // all but the top row will be added to the upper row
     {
-	for (i = sum_row - 1; i > -1; i--)  // each of the lower rows will get added to by the sum_row row
+	for (i = sum_row - 1; (int)i > -1; i--)  // each of the lower rows will get added to by the sum_row row
 	{
 	    scale = m->data[i][sum_row] / m->data[sum_row][sum_row];
 
@@ -58,10 +55,6 @@ mtx_rref (struct matrix *m_in)
     	} // end for i
     } // end for sum_row
 
-    printf ("Removed zeroes above?\n");
-    mtx_print (m);
-    mtx_print (m_inv);
-
     for (i = 0; i < m->rows; i++) 
     {
     	scale = 1.0 / m->data[i][i];
@@ -72,10 +65,6 @@ mtx_rref (struct matrix *m_in)
     	    m_inv->data[i][j] *= scale;
 	}
     } // end for i
-
-    printf ("Identity??\n");
-    mtx_print (m);
-    mtx_print (m_inv);
 
     return m_inv;
 }
