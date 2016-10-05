@@ -10,7 +10,7 @@ mtx_print_o (FILE* out, struct matrix *m)
 
     for (row = 0; row < m->rows; row++) {
 	for (col = 0; col < m->cols; col++)
-	    fprintf (out, "%.3f\t", m->data[row][col]);
+	    fprintf (out, "%.12f\t", m->data[row][col]);
 	fprintf (out, "\n");
     } // end row loop
 }
