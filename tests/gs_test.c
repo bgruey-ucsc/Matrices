@@ -21,12 +21,14 @@
 int main( int argc, char** argv) {
     struct matrix *a = mtx_load_from_file ("matrix1.dat");
 
-    printf("Graham-Schmidt Test.\n");
+    printf("Graham-Schmidt Test\n");
+    printf("Orthogonal basis vectors:\n"
     struct matrix *e = mtx_gs_col (a);
     mtx_print (e);
 
     struct matrix *eT = mtx_transpose (e);
     struct matrix *r = mtx_multiply(eT, a);
+    printf("A_1, diagonal-ish.\n");
     mtx_print (r);
     return 0;
 }
