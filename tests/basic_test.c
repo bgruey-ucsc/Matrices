@@ -16,7 +16,7 @@
 #include <string.h>
 
 
-#include "../lib/matrix.h"
+#include "matrix.h"
 
 int main( int argc, char** argv) {
 
@@ -46,9 +46,9 @@ int main( int argc, char** argv) {
 	struct matrix* c = mtx_multiply(a, b);
 	printf("Matrix c = a * b:\n");
 	mtx_print(c);
-	mtx_transpose(&a);
+	struct matrix *transpose_a = mtx_transpose(a);
 	printf("Transposed Matrix a:\n");
-	mtx_print(a);
+	mtx_print(transpose_a);
 
 // 
 // Testing Square Matrix Transpose
@@ -58,8 +58,8 @@ int main( int argc, char** argv) {
 	sqr->data[1][0] = 6.0;
 	sqr->data[1][1] = 8.0;
 	mtx_print(sqr);
-	mtx_transpose(&sqr);
-	mtx_print(sqr);
+	struct matrix *sqr_T = mtx_transpose(sqr);
+	mtx_print(sqr_T);
 
 	struct matrix* sym = mtx_new(3, 3);
 	sym->data[0][0] = 25.0;
