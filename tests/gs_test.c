@@ -24,6 +24,15 @@ int main( int argc, char** argv) {
     printf("Graham-Schmidt Test\n");
     printf("Orthogonal basis vectors:\n");
     struct matrix *e = mtx_gs_col (a);
+    struct matrix *dummy = NULL;
+    int i = 0;
+
+    for (i = 0; i < 150; i++)
+    {
+        dummy = mtx_gs_col (e);
+        e = mtx_copy (dummy);
+        mtx_delete (&dummy);
+    }
     mtx_print (e);
 
     printf ("Unitary? This should be the Identity Matrix.\n");
@@ -36,5 +45,17 @@ int main( int argc, char** argv) {
     struct matrix *r = mtx_multiply(eT, a);
     printf("A_1, diagonal-ish.\n");
     mtx_print (r);
+    
+    printf ("Step 1, Inverted!\n");
+
+    struct matrix *A_p = mtx_multiply (r, e);
+
+    printf ("A'\n");
+    mtx_print (A_p);
+
+    printf ("Identity????\n");
+    struct matrix *idd = mtx_multiply (a, A_p);
+    mtx_print (idd);
+
     return 0;
 }
