@@ -18,13 +18,13 @@ mtx_gs_col (struct matrix *m)
 {
     struct matrix *ptr = NULL;
 
-    int col;
-    int m_cols = (int)m->cols;
-    int m_rows = (int)m->rows;
+    size_t col;
+    size_t m_cols = m->cols;
+    size_t m_rows = m->rows;
 
     struct matrix **vecs = (struct matrix**) calloc (m->cols, sizeof(struct matrix*));
 
-    for (col = 0; col < (int)m->cols; col++)
+    for (col = 0; col < m->cols; col++)
         vecs[col] = mtx_get_col_vector (m, 0, m->rows, col);
 
     int vec, row;
@@ -35,15 +35,15 @@ mtx_gs_col (struct matrix *m)
     ptr = NULL;
   
   
-    int vec_it; 
+    size_t vec_it; 
     struct matrix *v1 = NULL;
     struct matrix *v2 = NULL;
     for (vec = 1; vec < m_cols; vec++) /* GS each vector */
     {
         v1 = mtx_copy (vecs[vec]);
-        for (vec_it = vec-1; vec_it >-1; vec_it -= 1)
+        for (vec_it = vec; vec_it > 0; vec_it -= 1)
         {
-            v2 = mtx_add (v1, vecs[vec_it], -mtx_dot (vecs[vec], vecs[vec_it]));
+            v2 = mtx_add (v1, vecs[vec_it-1], -mtx_dot (vecs[vec], vecs[vec_it-1]));
             mtx_delete (&v1);
             v1 = v2;
         }/*end for vec_it */
