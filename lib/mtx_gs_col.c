@@ -59,15 +59,6 @@ mtx_gs_col (struct matrix *m)
     for (vec = 0; vec < m_cols; vec++)
         for (row = 0; row < m_rows; row++)
             ret->data[row][vec] = vecs[vec]->data[row][0];
-/*
-    for (vec = 0; vec < m_cols; vec++)
-    {
-        for(vec_it = 0; vec_it < m_cols; vec_it++)
-        {
-            printf ("Dot prod of (%d, %d): %1.5e\n", vec, vec_it, mtx_dot (vecs[vec], vecs[vec_it]));
-        }
-    }
-*/
     return ret;
 
 }/*end mtx_gs_col*/

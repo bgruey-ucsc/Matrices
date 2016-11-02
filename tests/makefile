@@ -20,4 +20,4 @@ basic:
 
 gs:
 	$(CC) $(MATRIX_FLAGS) gs_test.c $(MATRIX_LIBRARY) -o test_gs.x
-	./test_gs.x
+	./test_gs.x | less
