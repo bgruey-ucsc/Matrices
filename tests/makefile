@@ -12,7 +12,7 @@ MATRIX_FLAGS = -Wall
 
 MATRIX_LIBRARY = -I../lib/ -L../lib/ -lmatrix -lm
 
-.PHONY: run, basic, read, gs
+.PHONY: run, basic, read, gs, clean
 
 basic:
 	$(CC) $(MATRIX_FLAGS) basic_test.c $(MATRIX_LIBRARY) -o test_basic.x
@@ -21,3 +21,6 @@ basic:
 gs:
 	$(CC) $(MATRIX_FLAGS) gs_test.c $(MATRIX_LIBRARY) -o test_gs.x
 	./test_gs.x | less
+
+clean:
+	rm *.x
