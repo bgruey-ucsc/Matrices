@@ -1,6 +1,7 @@
     Thoughts on next steps in the project, rather than littering them
 	throughout the gitlogs.
 
+
 1.  lib/mtx_transpose.c: Transpose API
 	- Currently uses pass by reference to alter the given matrix
 	- It should take a matrix pointer, and return its transpose
